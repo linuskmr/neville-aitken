@@ -153,7 +153,7 @@ class NevAit {
         const xl = this.support_points[l].x
         const numerator = `(${x.toFraction()}-${xk.toFraction()})*${this.p(k + 1, l, x).toFraction()} - (${x.toFraction()}-${xl.toFraction()})*${this.p(k, l - 1, x).toFraction()}`
         const denumerator = `${xl.toFraction()}-${xk.toFraction()}`
-        return `P${k},${l} = (${numerator}) / (${denumerator}) = ${this.p(k, l, x).toFraction()}`
+        return `P<sub>${k},${l}</sub> = (${numerator}) / (${denumerator}) = ${this.p(k, l, x).toFraction()}`
     }
 
     toString(x) {

@@ -4,24 +4,31 @@
         <title>Neville-Aitken</title>
 
         <meta charset="utf-8" />
-
         <script src="fraction.js"></script>
         <script src="index.js"></script>
-
+        
         <script>
             window.onload = () => {
                 const n = new NevAit([[0, 1], [1, 3], [3, 2]])
                 console.log("Result: " + n.evaluate(2).toFraction())
                 document.getElementById("output").innerHTML = n.toString(2)
             }
-        </script>
+            </script>
         
-        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <form>
-        </form>
-        <pre id="output">
-        </pre>
+        <header>
+        </header>
+        <main>
+            <form>
+            </form>
+            <pre id="output">
+            </pre>
+        </main>
+        <footer>
+            <p>Made by Linus Kämmerer and Maximilian Giller in 2021. Can be found on <a href="https://github.com/linus-k519/neville-aitken">GitHub</a></p>
+        </footer>
     </body>
 </html>
