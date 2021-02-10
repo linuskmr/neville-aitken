@@ -11,7 +11,7 @@
         <script>
             window.onload = () => {
                 const n = new NevAit([[0, 1], [1, 3], [3, 2]])
-                console.log("Result: " + n.evaluate(2))
+                console.log("Result: " + n.evaluate(2).toFraction())
                 document.getElementById("output").innerHTML = n.toString(2)
             }
         </script>

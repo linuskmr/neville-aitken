@@ -33,7 +33,7 @@ class NevAit {
         if (this.p_list[k][l] === undefined) {
             // Fetch xk and xl
             const xk = this.support_points[k].x
-            const xl = this.support_points[l].y
+            const xl = this.support_points[l].x
         
             // Calculate divided difference
             this.p_list[k][l] = (x.sub(xk).mul(this.p(k + 1, l, x)).sub(x.sub(xl).mul(this.p(k, l - 1, x)))).div(xl.sub(xk))
@@ -114,8 +114,9 @@ class NevAit {
 
     getNevAitRow(r, x) {
         let k = Math.floor((r - 1) / 2)
+        const max_param = this.support_points.length - 1
         
-        if (k < 0) {
+        if (k < 0 || max_param * 2 == r) {
             return "";
         }
         
@@ -126,10 +127,15 @@ class NevAit {
             result += " ".repeat(this.getNevAitPLength())
         }
         
-        const max_param = this.support_points.length - 1
+        let first = true
         while (k >= 0 && l <= max_param) {
+            if (first == false) {
+                result += " ".repeat(this.getNevAitPLength())
+            } else {
+                first = false
+            }
+
             result += this.getNevAitP(k, l, x)
-            result += " ".repeat(this.getNevAitPLength())
 
             k -= 1
             l += 1
@@ -139,19 +145,20 @@ class NevAit {
     }
         
     getNevAitPLength() {
-        return 30
+        return 42
     }
         
     getNevAitP(k, l, x) {
         const xk = this.support_points[k].x
-        const xl = this.support_points[l].y
-        const numerator = `(${x}-${xk})*${this.p(k + 1, l, x)} - (${x}-${xl})*${this.p(k, l - 1, x)}`
-        const denumerator = `${xl}-${xk}`
-        return `P${k},${l} = (${numerator}) / (${denumerator}) = ${this.p(k, l, x)}`
+        const xl = this.support_points[l].x
+        const numerator = `(${x.toFraction()}-${xk.toFraction()})*${this.p(k + 1, l, x).toFraction()} - (${x.toFraction()}-${xl.toFraction()})*${this.p(k, l - 1, x).toFraction()}`
+        const denumerator = `${xl.toFraction()}-${xk.toFraction()}`
+        return `P${k},${l} = (${numerator}) / (${denumerator}) = ${this.p(k, l, x).toFraction()}`
     }
 
     toString(x) {
         let result = this.getPointTableHeader()
+        x = new Fraction(x)
 
         // Row count:
         // 2 * #SupportPoints so that there is a row for every suppport point and a row inbetween
