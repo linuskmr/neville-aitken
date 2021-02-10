@@ -1,9 +1,11 @@
-pre {
-    font-family: "Fira Code", "Courier New", monospace;
+html {
+    font-family: sans-serif;
+    background-color: black;
+    color: white;
 }
 
-body {
-    font-family: sans-serif;
+pre {
+    font-family: "Fira Code", "Courier New", monospace;
 }
 
 footer {
@@ -11,7 +13,7 @@ footer {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #eeeef0;
+    background-color: #1f1f1f;
     text-align: center;
 }
 /*# sourceMappingURL=style.css.map */
