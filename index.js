@@ -16,7 +16,7 @@ class NevAit {
         }
         this.p_list = [[]]
         this.number_space = 2   // Space that will be available for a single number without destroying the output string
-        this.single_line = true // If set to false, will print more elaborate
+        this.multi_line = false //! Currently not in use, keep on false // If set to true, it prints a more elaborate version
     }
 
     p(k, l, x) {
@@ -56,7 +56,7 @@ class NevAit {
         x = new Fraction(x)
 
         // Reset p_list
-        this.p_list = []
+        this.p_list = [[]]
 
         return this.p(k, l, x)
     }
@@ -66,11 +66,13 @@ class NevAit {
         const row_length = header.length
 
         header += "\n"
-        if (this.single_line) {
-            header = " ".repeat(row_length) + "\n" + header + " ".repeat(row_length) + "\n"
+        const space_length = (row_length - 1) / 2
+        if (this.multi_line) {
+            const buffer_row = " ".repeat(space_length) + POINTS_TABLE_V_SEP + " ".repeat(space_length) + "\n"
+            header = buffer_row + header + buffer_row
         }
 
-        header += POINTS_TABLE_H_SEP.repeat(row_length)
+        header += POINTS_TABLE_H_SEP.repeat(space_length) + POINTS_TABLE_X_SEP + POINTS_TABLE_H_SEP.repeat(space_length)
         return header + "\n"
     }
 
@@ -81,7 +83,7 @@ class NevAit {
     }
 
     getLineHeight() {
-        if (this.single_line) {
+        if (this.multi_line) {
             return 1
         } else {
             return 3
@@ -89,12 +91,18 @@ class NevAit {
     }
 
     getPointsTableRow(r) {
-        
+        //! Multiline not implemented
+        if (r % 2 == 0) {
+            const index = Math.floor(r / 2)
+            return this.getPointsTableEntry(this.support_points[index].x, this.support_points[index].y)
+        } else {
+            return this.getPointsTableEntry()
+        }
     }
 
-    getPointsTableEntry(a, b) {
-        a = a.padStart(this.getPointTableCellWidth(), " ");
-        b = b.padStart(this.getPointTableCellWidth(), " ");
+    getPointsTableEntry(a = "", b = "") {
+        a = a.toString().padStart(this.getPointTableCellWidth(), " ");
+        b = b.toString().padStart(this.getPointTableCellWidth(), " ");
 
         let margin = ""
         if (POINTS_TABLE_MARGIN > 0) {
@@ -102,6 +110,20 @@ class NevAit {
         }
             
         return margin + a + margin + POINTS_TABLE_V_SEP + margin + b + margin
+    }
+
+    getNevAitRow(r, x) {
+
+    }
+        
+    getNevAitPLength() {
+        return 30
+    }
+        
+    getNevAitP(k, l, x) {
+        const numerator = `(${x}-${xk})*${this.p(k + 1, l, x)} - (${x}-${xl})*${this.p(k, l - 1, x)}`
+        const denumer = `${xl}-${xk}`
+        return `P${k},${l} = ${numerator} / ${denumerator} = ${result}`
     }
 
     toString(x) {
@@ -117,6 +139,9 @@ class NevAit {
         // Generate row by row
         for (let row = 0; row < row_count; row++) {
             result += this.getPointsTableRow(row);
+            result += " "
+            result += this.getNevAitRow(row, x);
+            result += "\n"
         }
 
         return result
