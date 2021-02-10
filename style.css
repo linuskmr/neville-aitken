@@ -1,4 +1,17 @@
-* {
+pre {
     font-family: "Fira Code", "Courier New", monospace;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #eeeef0;
+    text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

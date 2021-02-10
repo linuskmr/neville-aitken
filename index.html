@@ -5,16 +5,8 @@
 
         <meta charset="utf-8" />
         <script src="fraction.js"></script>
-        <script src="index.js"></script>
-        
-        <script>
-            window.onload = () => {
-                const n = new NevAit([[0, 1], [1, 3], [3, 2]])
-                console.log("Result: " + n.evaluate(2).toFraction())
-                document.getElementById("output").innerHTML = n.toString(2)
-            }
-            </script>
-        
+        <script src="nev_ait.js"></script>
+
         <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
     </head>
@@ -23,6 +15,9 @@
         </header>
         <main>
             <form>
+              <input id="support_points_input" type="text" value="[(1,2), (6,4), (5,1)]">
+              <input id="x_input" type="text" value="3">
+              <button type="button" onclick="render_nev_ait()">Calculate</button>
             </form>
             <pre id="output">
             </pre>
@@ -32,3 +27,6 @@
         </footer>
     </body>
 </html>
+
+
+<script src="index.js"></script>
