@@ -113,20 +113,29 @@ class NevAit {
     }
 
     getNevAitRow(r, x) {
-        let k = (r + 1) * 2 - 1
-        let l = 4
+        let k = Math.floor((r - 1) / 2)
         
-        let params = []
+        if (k < 0) {
+            return "";
+        }
+        
+        let l = k + 1
+        let result = "";
+        if (r % 2 == 0) {
+            l = k + 2
+            result += " ".repeat(this.getNevAitPLength())
+        }
+        
         const max_param = this.support_points.length - 1
-
-
         while (k >= 0 && l <= max_param) {
-            params.push({ k: k, l: l })
+            result += this.getNevAitP(k, l, x)
+            result += " ".repeat(this.getNevAitPLength())
+
             k -= 1
             l += 1
         }
         
-        
+        return result
     }
         
     getNevAitPLength() {
@@ -134,14 +143,14 @@ class NevAit {
     }
         
     getNevAitP(k, l, x) {
+        const xk = this.support_points[k].x
+        const xl = this.support_points[l].y
         const numerator = `(${x}-${xk})*${this.p(k + 1, l, x)} - (${x}-${xl})*${this.p(k, l - 1, x)}`
-        const denumer = `${xl}-${xk}`
-        return `P${k},${l} = (${numerator}) / (${denumerator}) = ${result}`
+        const denumerator = `${xl}-${xk}`
+        return `P${k},${l} = (${numerator}) / (${denumerator}) = ${this.p(k, l, x)}`
     }
 
     toString(x) {
-        this.evaluate(x)
-
         let result = this.getPointTableHeader()
 
         // Row count:
