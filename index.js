@@ -113,7 +113,20 @@ class NevAit {
     }
 
     getNevAitRow(r, x) {
+        let k = (r + 1) * 2 - 1
+        let l = 4
+        
+        let params = []
+        const max_param = this.support_points.length - 1
 
+
+        while (k >= 0 && l <= max_param) {
+            params.push({ k: k, l: l })
+            k -= 1
+            l += 1
+        }
+        
+        
     }
         
     getNevAitPLength() {
@@ -123,7 +136,7 @@ class NevAit {
     getNevAitP(k, l, x) {
         const numerator = `(${x}-${xk})*${this.p(k + 1, l, x)} - (${x}-${xl})*${this.p(k, l - 1, x)}`
         const denumer = `${xl}-${xk}`
-        return `P${k},${l} = ${numerator} / ${denumerator} = ${result}`
+        return `P${k},${l} = (${numerator}) / (${denumerator}) = ${result}`
     }
 
     toString(x) {
