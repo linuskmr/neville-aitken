@@ -11,7 +11,11 @@ function parse_input() {
 }
 
 function render_nev_ait() {
-    const input = parse_input()
+    try {
+        const input = parse_input()
+    } catch(e) {
+        alert(e)
+    }
     const n = new NevAit(input.support_points)
     const result = n.toString(input.x)
     document.getElementById("output").innerHTML = result
