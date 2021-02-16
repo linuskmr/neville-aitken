@@ -11,8 +11,9 @@ function parse_input() {
 }
 
 function render_nev_ait() {
+    let input = null
     try {
-        const input = parse_input()
+        input = parse_input()
     } catch(e) {
         alert(e)
     }
